@@ -31,8 +31,8 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.sound.PositionedSoundInstance;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
@@ -478,6 +478,7 @@ public class ChatWindow {
             RenderUtils.color(1, 1, 1, 1);
             RenderUtils.bindTexture(X_ICON);
             context.drawTexture(
+                    RenderLayer::getGuiTextured,
                     X_ICON,
                     rightX - scaledBar + 1,
                     getActualY(newY - 1),
@@ -494,6 +495,7 @@ public class ChatWindow {
             RenderUtils.color(1, 1, 1, 1);
             RenderUtils.bindTexture(RESIZE_ICON);
             context.drawTexture(
+                    RenderLayer::getGuiTextured,
                     RESIZE_ICON,
                     rightX - scaledBar * 2 + 2,
                     getActualY(newY - 1),
@@ -509,6 +511,7 @@ public class ChatWindow {
             // Visibility
             RenderUtils.bindTexture(visibility.getTexture());
             context.drawTexture(
+                    RenderLayer::getGuiTextured,
                     visibility.getTexture(),
                     rightX - scaledBar * 3 + 3,
                     getActualY(newY - 1),
@@ -673,10 +676,10 @@ public class ChatWindow {
                 headX = pLX - 10;
             }
             int headY = getActualY(y);
-            context.drawTexture(
-                    line.getParent().getOwner().getTexture(), headX, headY, 8, 8, 8, 8, 8, 8, 64, 64);
-            context.drawTexture(
-                    line.getParent().getOwner().getTexture(), headX, headY, 8, 8, 40, 8, 8, 8, 64, 64);
+            context.drawTexture(RenderLayer::getGuiTextured, line.getParent().getOwner().getTexture(), 
+                    headX, headY, 8, 8, 8, 8, 8, 8, 64, 64);
+            context.drawTexture(RenderLayer::getGuiTextured, line.getParent().getOwner().getTexture(), 
+                    headX, headY, 8, 8, 40, 8, 8, 8, 64, 64);
             RenderSystem.setShaderColor(1, 1, 1, 1);
         }
         context.drawTextWithShadow(
