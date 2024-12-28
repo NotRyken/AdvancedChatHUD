@@ -340,12 +340,16 @@ public class ChatWindow {
                         getScaledHeight() - HudConfigStorage.General.TOP_PAD.config.getIntegerValue() + (HudConfigStorage.General.MESSAGE_SPACE.config.getIntegerValue() + HudConfigStorage.General.LINE_SPACE.config.getIntegerValue() * (renderTopFirst ? 2 : 1)),
                         renderTopFirst ? HudConfigStorage.General.TOP_PAD.config.getIntegerValue() + HudConfigStorage.General.LINE_SPACE.config.getIntegerValue(): HudConfigStorage.General.BOTTOM_PAD.config.getIntegerValue());
 
-        double scale = client.getWindow().getScaleFactor();
-        ScissorUtil.applyScissorBox(
-                (int) (getConvertedX() * scale),
-                (int) ((client.getWindow().getScaledHeight() - getConvertedY()) * scale),
-                (int) (getConvertedWidth() * scale),
-                (int) (getConvertedHeight() * scale));
+        // Disabled in 1.21.3+ due to interfering with status effect icons.
+        // Unsure of original intended function.
+        // - NotRyken
+//        double scale = client.getWindow().getScaleFactor();
+//        ScissorUtil.applyScissorBox(
+//                (int) (getConvertedX() * scale),
+//                (int) ((client.getWindow().getScaledHeight() - getConvertedY()) * scale),
+//                (int) (getConvertedWidth() * scale),
+//                (int) (getConvertedHeight() * scale));
+        
         boolean foundScroll = false;
         for (int j = 0; j < this.lines.size(); j++) {
             ChatMessage message = this.lines.get(j);
